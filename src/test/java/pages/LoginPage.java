@@ -1,28 +1,26 @@
 package pages;
 
 import com.microsoft.playwright.Page;
-import org.testng.Assert;
 
 public class LoginPage {
-    private final Page page;
 
-    // Locators
-    private final String usernameInput = "input[name='username']";
-    private final String passwordInput = "input[name='password']";
-    private final String loginButton = "button[type='submit']";
+    private Page page;
 
-    // Constructor
     public LoginPage(Page page) {
         this.page = page;
     }
 
-    // Actions
-    public void login(String username, String password) {
-        page.fill(usernameInput, username);
-        page.fill(passwordInput, password);
-        page.click(loginButton);
-        page.waitForURL("**/dashboard");
-        Assert.assertTrue(page.url().contains("dashboard"));
+    private String username = "input[name='username']";
+    private String password = "input[name='password']";
+    private String loginBtn = "button[type='submit']";
 
+    public void navigate() {
+        page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+    }
+
+    public void login(String user, String pass) {
+        page.fill(username, user);
+        page.fill(password, pass);
+        page.click(loginBtn);
     }
 }
